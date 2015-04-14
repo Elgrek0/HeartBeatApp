@@ -16,7 +16,7 @@ import Exceptions.NoDataException;
 public class DatabaseAccess implements Database {
 
     private DatabaseHelper dbhelper;
-    private SQLiteDatabase db;
+    protected SQLiteDatabase db;
     protected String Logcat = "database";
     protected int id;
     protected FrequencyCalculator fc ;
