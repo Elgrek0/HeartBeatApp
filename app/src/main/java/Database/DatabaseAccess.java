@@ -7,8 +7,8 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import DataAnalytics.FrequencyCalculator;
-import Exceptions.NoDataException;
+import dataAnalytics.FrequencyCalculator;
+import exceptions.NoDataException;
 
 /**
  * Created by Paris on 14/4/2015.
@@ -37,11 +37,15 @@ public class DatabaseAccess implements Database {
 
 
     private int getid() {
+    	Cursor c = null;
         try{
-            Cursor c = db.rawQuery("SELECT * FROM Beats WHERE id>'0'", null);
+            c = db.rawQuery("SELECT * FROM Beats WHERE id>'0'", null);
             if (c.moveToLast()) {
-                return (Integer.getInteger(c.getString(0)));
+            	String s = c.getString(0);
+            	c.close();
+                return (Integer.getInteger(s));
             } else
+            	c.close();
                 return (0);}
         catch(NullPointerException e){
             return(0);
@@ -51,18 +55,27 @@ public class DatabaseAccess implements Database {
     private int getid(int id) throws Exception {
         Cursor c = db.rawQuery("SELECT * FROM Beats WHERE id='" + id + "'", null);
         if (c.moveToFirst()) {
-            return (Integer.getInteger(c.getString(0)));
+        	String s = c.getString(0);
+        	c.close();
+            return (Integer.getInteger(s));
         }
-        throw new Exception("item does not exist");
+        else{
+	        c.close();
+	        throw new Exception("item does not exist");
+        }
     }
 
     private double getfrequency(int id) throws NoDataException {
         Cursor c = db.rawQuery("SELECT * FROM Beats WHERE id='" + id + "'", null);
         if (c.moveToFirst()) {
-            return (Double.parseDouble(c.getString(1)));
+        	String s = c.getString(1);
+        	c.close();
+            return (Double.parseDouble(s));
         }
-        else
-        throw new NoDataException();
+        else{
+        	c.close();
+        	throw new NoDataException();
+        }
     }
 
     @Override

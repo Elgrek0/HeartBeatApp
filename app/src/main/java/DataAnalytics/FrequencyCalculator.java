@@ -1,10 +1,10 @@
-package DataAnalytics;
+package dataAnalytics;
 
 import android.util.Log;
 
 import java.util.LinkedList;
 
-import Exceptions.NotEnoughDataException;
+import exceptions.NotEnoughDataException;
 
 /**
  * Created by Paris on 6/4/2015.
@@ -22,9 +22,9 @@ public class FrequencyCalculator {
     public float CalculateFrequency(float strength) throws NotEnoughDataException {
         buffer.add(System.currentTimeMillis());
         if (buffer.size() > size) {
-            buffer.removeFirst();
+            buffer.remove(0);
 
-            return ((float)1000.0/((buffer.peekLast() - buffer.peekFirst()) / (size - 1)));
+            return ((float)1/((buffer.getLast() - buffer.getFirst()) / (1000.0f*(size - 1))));
         }throw new NotEnoughDataException();
     }
 
