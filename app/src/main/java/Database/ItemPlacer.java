@@ -4,7 +4,7 @@ import android.content.ContentValues;
 
 import java.util.Calendar;
 
-import Exceptions.NotEnoughDataException;
+import exceptions.NotEnoughDataException;
 
 /**
  * Created by Paris on 14/4/2015.

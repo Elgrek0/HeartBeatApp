@@ -1,4 +1,4 @@
-package TestClasses;
+package testClasses;
 
 
 
@@ -6,7 +6,6 @@ import android.util.Log;
 
 
 import database.DatabaseAccess;
-import database.DatabaseHelper;
 
 import static java.lang.Math.sin;
 

@@ -1,15 +1,8 @@
 package database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Binder;
-import android.util.Log;
-
-import java.util.Calendar;
-
-import DataAnalytics.FrequencyCalculator;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
