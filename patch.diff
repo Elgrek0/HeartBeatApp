@@ -1,0 +1,77 @@
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index 75fdab9..9076de5 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -1,5 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="EntryPointsManager">
++    <entry_points version="2.0" />
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+diff --git a/HeartBeatApp.iml b/HeartBeatApp.iml
+index 2a02201..42f4ed5 100644
+--- a/HeartBeatApp.iml
++++ b/HeartBeatApp.iml
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
++<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+   <component name="FacetManager">
+     <facet type="java-gradle" name="Java-Gradle">
+       <configuration>
+@@ -7,7 +7,7 @@
+       </configuration>
+     </facet>
+   </component>
+-  <component name="NewModuleRootManager" inherit-compiler-output="false">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
+     <output url="file://$MODULE_DIR$/build/classes/main" />
+     <output-test url="file://$MODULE_DIR$/build/classes/test" />
+     <exclude-output />
+diff --git a/app/app.iml b/app/app.iml
+index 327e921..df4de07 100644
+--- a/app/app.iml
++++ b/app/app.iml
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
++<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="HeartBeatApp" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+   <component name="FacetManager">
+     <facet type="android-gradle" name="Android-Gradle">
+       <configuration>
+@@ -9,6 +9,7 @@
+     <facet type="android" name="Android">
+       <configuration>
+         <option name="SELECTED_BUILD_VARIANT" value="debug" />
++        <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
+         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+         <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
+         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugTest" />
+@@ -24,6 +25,7 @@
+   </component>
+   <component name="NewModuleRootManager" inherit-compiler-output="false">
+     <output url="file://$MODULE_DIR$/build/intermediates/classes/debug" />
++    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/debug" />
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/debug" isTestSource="false" generated="true" />
+diff --git a/app/src/main/java/upatras/heartbeatapp/Database.java b/app/src/main/java/upatras/heartbeatapp/Database.java
+new file mode 100644
+index 0000000..2bcd5e2
+--- /dev/null
++++ b/app/src/main/java/upatras/heartbeatapp/Database.java
+@@ -0,0 +1,11 @@
++package upatras.heartbeatapp;
++
++/**
++ * Created by George on 4/5/2015.
++ */
++public interface Database {
++
++    //Commit new sample from heart beat monitor to Database
++    public void commitNewHBSample(float sampleValue);
++
++}
