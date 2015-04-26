@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="upatras.heartbeatapp.DeviceScanActivity"
+            android:name="upatras.heartbeatapp.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,14 @@
         </activity>
         <activity
             android:name="upatras.heartbeatapp.HeartBeatSpectrumActivity"
+            android:label="@string/title_activity_heart_beat_spectrum" >
+        </activity>
+        <activity
+            android:name="upatras.heartbeatapp.DeviceScanActivity"
+            android:label="@string/title_activity_heart_beat_spectrum" >
+        </activity>
+        <activity
+            android:name="upatras.heartbeatapp.DeviceControlActivity"
             android:label="@string/title_activity_heart_beat_spectrum" >
         </activity>
     </application>
