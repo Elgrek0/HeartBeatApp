@@ -1,9 +1,13 @@
 package upatras.heartbeatapp;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
 import database.DatabaseAccess;
+import exceptions.NoDataException;
+import exceptions.ParameterLengthMismatch;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -31,19 +35,40 @@ public class HeartBeatSpectrum extends View{
 	
 	public HeartBeatSpectrum(Context context) {
 		super(context);
-		db = new DatabaseAccess(context);
+        db = new DatabaseAccess(context,"HeartBeat");
+        String[] var_names={"id" ,"frequency","strength" ,"timems" ,"date"};
+        Class[] types={Integer.class,Float.class,Integer.class,Integer.class,Integer.class};
+        try {
+            db.createtable("Beats",var_names,types);
+        } catch (ParameterLengthMismatch parameterLengthMismatch) {
+            parameterLengthMismatch.printStackTrace();
+        }
 		initDraw();
 	}
 	
 	public HeartBeatSpectrum(Context context,AttributeSet attr){
 		super(context,attr);
-		db = new DatabaseAccess(context);
-		initDraw();
-	}
+		db = new DatabaseAccess(context,"HeartBeat");
+        String[] var_names={"id" ,"frequency","strength" ,"timems" ,"date"};
+        Class[] types={Integer.class,Float.class,Integer.class,Integer.class,Integer.class};
+        try {
+            db.createtable("Beats",var_names,types);
+        } catch (ParameterLengthMismatch parameterLengthMismatch) {
+            parameterLengthMismatch.printStackTrace();
+        }
+        initDraw();
+    }
 	
 	public HeartBeatSpectrum(Context context,AttributeSet attr,int defStyle){
 		super(context,attr,defStyle);
-		db = new DatabaseAccess(context);
+        db = new DatabaseAccess(context,"HeartBeat");
+        String[] var_names={"id" ,"frequency","strength" ,"timems" ,"date"};
+        Class[] types={Integer.class,Float.class,Integer.class,Integer.class,Integer.class};
+        try {
+            db.createtable("Beats",var_names,types);
+        } catch (ParameterLengthMismatch parameterLengthMismatch) {
+            parameterLengthMismatch.printStackTrace();
+        }
 		initDraw();
 	}
 	
@@ -125,22 +150,30 @@ public class HeartBeatSpectrum extends View{
 			c.drawRect(rects.get(i), g);
 		}*/
 		
-		try {
+
 				float min = 40,max=60;
 				float inc = (max-min);
 				
 				//long time = System.currentTimeMillis();
-				float[] data = db.getData(30);
-				//System.out.println(System.currentTimeMillis()-time);
-				for(int i=0;i<data.length;i++){
-					g.setColor(pallete[(int)(i*2)%pallete.length]);
-					System.out.println(data[i]*60);
-					c.drawLine(i*10, 0, i*10, 200*(data[i]*60-min)/inc, g);
-					//Log.d("", msg);
-				}
+
+        try {
+            Object []datat;
+            datat = db.getData(30, "Beats", Float.class, "frequency");
+            Float[] data = Arrays.copyOf(datat, datat.length, Float[].class);
+            //System.out.println(System.currentTimeMillis()-time);
+            for (int i = 0; i < data.length; i++) {
+                g.setColor(pallete[(int) (i * 2) % pallete.length]);
+                System.out.println(data[i] * 60);
+                c.drawLine(i * 10, 0, i * 10, 200 * (data[i] * 60 - min) / inc, g);
+                //Log.d("", msg);
+            }
+        }
+        catch (NoDataException e) {
+            e.printStackTrace();
+        }
 				//c.drawRect(new Rect((int)db.getSpecificData(i),height/2-100,(int)db.getSpecificData(i)+1,height/2),g);
 				
-		} catch (Exception e) {;}
+
 		
 		
 	}

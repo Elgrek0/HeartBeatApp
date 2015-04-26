@@ -54,7 +54,7 @@ public class TestDatabase {
         }
     public void readdatabase() {
         try {
-            float[] data=database.getData(5);
+            Float[] data=(Float[])database.getData(5,"Beats",Float.class,"frequency");
             for(int i=0;i<5;i++)
                 System.out.println(data[i]);
 
