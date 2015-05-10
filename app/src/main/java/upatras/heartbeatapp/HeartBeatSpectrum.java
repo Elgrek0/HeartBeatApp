@@ -158,7 +158,7 @@ public class HeartBeatSpectrum extends View{
 
         try {
             Object []datat;
-            datat = db.getData(30, "Beats", Float.class, "frequency");
+            datat = db.getData(50, "Beats","id", "frequency",Float.class);
             Float[] data = Arrays.copyOf(datat, datat.length, Float[].class);
             //System.out.println(System.currentTimeMillis()-time);
             for (int i = 0; i < data.length; i++) {

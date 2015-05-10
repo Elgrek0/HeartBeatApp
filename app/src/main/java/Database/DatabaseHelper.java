@@ -9,6 +9,8 @@ import exceptions.ParameterLengthMismatch;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     String dbname;
+    String initquery;
+    String table_name;
     boolean debug=true;
     public DatabaseHelper(Context context,String database_name)
     {
@@ -20,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     protected void createtable(SQLiteDatabase database,String table_name,String[] param_names,Class<?>[] param_types) throws ParameterLengthMismatch {
         if(param_names.length!=param_types.length)
             throw(new ParameterLengthMismatch());
+        this.table_name=table_name;
         String query="CREATE TABLE IF NOT EXISTS "+table_name+"(";
         for(int i=0;i<param_names.length;i++) {
             try {
@@ -31,15 +34,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 query=query+",";
         }
         query=query+");";
+        initquery=query;
         if(debug)System.out.printf("query is :"+query);
         database.execSQL(query);
     }
 
-    protected void redo(SQLiteDatabase database){
-        database.execSQL("DROP TABLE Beats");
-        database.execSQL("CREATE TABLE IF NOT EXISTS Beats(id INTEGER,frequency REAL,strength INTEGER,timems INTEGER,date INTEGER);");
-
-
+    protected void redo(SQLiteDatabase database){ //todo reset by tables not by hardcoded variable
+        database.execSQL("DROP TABLE IF EXISTS Beats");
+        if(initquery!=null)
+            database.execSQL(initquery);
+        else
+            ;
+            //database.execSQL("CREATE TABLE IF NOT EXISTS Beats(id INTEGER,frequency REAL,strength INTEGER,timems INTEGER,date INTEGER");
     }
 
     @Override
