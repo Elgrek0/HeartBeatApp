@@ -12,7 +12,7 @@ import upatras.heartbeatapp.MainActivity;
 /**
  * Created by George on 5/10/2015.
  */
-public class ReadBytesThread {
+public class ReadBytesThread  extends Thread {
 
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;

@@ -50,6 +50,7 @@ class ConnectThread extends Thread {
 
     void manageConnectedSocket(BluetoothSocket mmSocket){
         ReadBytesThread rbt = new ReadBytesThread(mmSocket);
+        rbt.start();
     }
 
     /** Will cancel an in-progress connection, and close the socket */
