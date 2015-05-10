@@ -42,16 +42,22 @@ public class ReadBytesThread  extends Thread {
 
         // Keep listening to the InputStream until an exception occurs
         while (true) {
-            try {
-                // Read from the InputStream
-                bytes = mmInStream.read(buffer);
+           // try {
+            byte[] data="Hello World".getBytes();
+                write(data);
+                //bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
                 //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
-                mainactivity.showMyToast(buffer.toString());
-                Log.d("dsdsd", buffer.toString());
-            } catch (IOException e) {
-                break;
+                System.out.println("sent hw");
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            //Log.d("dsdsd", buffer.toString());
+           // } catch (IOException e) {
+            //    break;
+            //}
         }
     }
 

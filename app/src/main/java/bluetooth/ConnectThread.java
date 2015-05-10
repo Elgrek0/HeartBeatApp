@@ -31,12 +31,13 @@ class ConnectThread extends Thread {
 
     public void run() {
         // Cancel discovery because it will slow down the connection
-        mBluetoothAdapter.cancelDiscovery();
+        //mBluetoothAdapter.cancelDiscovery();
 
         try {
             // Connect the device through the socket. This will block
             // until it succeeds or throws an exception
             mmSocket.connect();
+            manageConnectedSocket(mmSocket);
         } catch (IOException connectException) {
             // Unable to connect; close the socket and get out
             try {
@@ -44,16 +45,16 @@ class ConnectThread extends Thread {
             } catch (IOException closeException) { }
             return;
         }
-
+        System.out.println("socket connected");
         // Do work to manage the connection (in a separate thread)
-        manageConnectedSocket(mmSocket);
+
     }
 
 
     void manageConnectedSocket(BluetoothSocket mmSocket){
         rbt=new ReadBytesThread(mmSocket);
         rbt.start();
-        rbt.write("hello world".getBytes());
+
     }
 
     /** Will cancel an in-progress connection, and close the socket */
