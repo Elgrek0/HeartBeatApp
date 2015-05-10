@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import bluetooth.Detector;
 import bluetooth.ReadBytesThread;
 
 public class MainActivity extends ActionBarActivity {
@@ -26,8 +27,9 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        
-        
+
+        Detector dec=new Detector();
+        dec.connect(this);
     }
 
 

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,17 +20,17 @@ public class Detector {
     BluetoothAdapter ba= BluetoothAdapter.getDefaultAdapter();
     ArrayAdapter<String> BTArrayAdapter ;
     public void  connect(Activity a){
-
+        Toast.makeText(a,"detector created",Toast.LENGTH_SHORT).show();
         ba.startDiscovery();
         IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);
         BTArrayAdapter=new ArrayAdapter<String>(a,android.R.layout.simple_list_item_1);
-        if(ba.isDiscovering())
-            ba.cancelDiscovery();
-        if(!ba.isDiscovering()){
+        //if(ba.isDiscovering())
+           // ba.cancelDiscovery();
+       // if(!ba.isDiscovering()){
             Log.d("myapp","started discovery");
             ba.startDiscovery();
             a.registerReceiver(bReceiver,new IntentFilter(BluetoothDevice.ACTION_FOUND));
-        }
+        //}
 
     }
     final BroadcastReceiver bReceiver=new BroadcastReceiver() {
@@ -42,6 +43,7 @@ public class Detector {
                 BTArrayAdapter.add(device.getName()+"\n"+device.getAddress());
                 Log.d("myapp","device found " + device.getName());
                 BTArrayAdapter.notifyDataSetChanged();
+                new ConnectThread(device,ba).start();
             }
         }
     };
