@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Detector {
     BluetoothAdapter ba= BluetoothAdapter.getDefaultAdapter();
     ArrayAdapter<String> BTArrayAdapter ;
-    public void  Connect(Activity a){
+    public void  connect(Activity a){
 
         ba.startDiscovery();
         IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);

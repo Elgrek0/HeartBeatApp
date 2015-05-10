@@ -1,20 +1,17 @@
 package upatras.heartbeatapp;
 
-import upatras.heartbeatapp.R;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.app.ActionBar.LayoutParams;
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.os.Build;
+import android.widget.Toast;
+
+import bluetooth.ReadBytesThread;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -22,6 +19,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ReadBytesThread.mainactivity = this;
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -67,6 +65,16 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+    }
+
+    public void showMyToast(String text){
+
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
     }
 
 }
