@@ -13,13 +13,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import upatras.heartbeatapp.MainActivity;
+
 /**
  * Created by Paris on 20/4/2015.
  */
 public class Detector {
     BluetoothAdapter ba= BluetoothAdapter.getDefaultAdapter();
     ArrayAdapter<String> BTArrayAdapter ;
+    Activity a;
     public void  connect(Activity a){
+        this.a=a;
         Toast.makeText(a,"detector created",Toast.LENGTH_SHORT).show();
         ba.startDiscovery();
         IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -29,6 +33,10 @@ public class Detector {
        // if(!ba.isDiscovering()){
             Log.d("myapp","started discovery");
             ba.startDiscovery();
+        try {
+            a.unregisterReceiver(bReceiver);
+        }
+        catch(Exception e){}
             a.registerReceiver(bReceiver,new IntentFilter(BluetoothDevice.ACTION_FOUND));
         //}
 
@@ -41,9 +49,11 @@ public class Detector {
             if(BluetoothDevice.ACTION_FOUND.equals(action)){
                 BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 BTArrayAdapter.add(device.getName()+"\n"+device.getAddress());
+                if(a.getClass()==MainActivity.class)
+                    ((MainActivity)a).showMyToast(device.getName());
                 Log.d("myapp","device found " + device.getName());
                 BTArrayAdapter.notifyDataSetChanged();
-                new ConnectThread(device,ba).start();
+                new ConnectThread(device,ba,a).start();
             }
         }
     };

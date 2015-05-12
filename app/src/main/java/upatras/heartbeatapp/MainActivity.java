@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import bluetooth.Detector;
-import bluetooth.ReadBytesThread;
+import bluetooth.HelloWorldThread;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ReadBytesThread.mainactivity = this;
+        HelloWorldThread.mainactivity = this;
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

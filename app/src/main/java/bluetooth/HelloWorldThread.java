@@ -12,7 +12,7 @@ import upatras.heartbeatapp.MainActivity;
 /**
  * Created by George on 5/10/2015.
  */
-public class ReadBytesThread  extends Thread {
+public class HelloWorldThread extends Thread {
 
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
@@ -20,7 +20,7 @@ public class ReadBytesThread  extends Thread {
     final int MESSAGE_READ = 9999;
     public static MainActivity mainactivity;
 
-    public ReadBytesThread(BluetoothSocket socket) {
+    public HelloWorldThread(BluetoothSocket socket) {
         mmSocket = socket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -48,7 +48,7 @@ public class ReadBytesThread  extends Thread {
                 //bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
                 //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
-                System.out.println("sent hw");
+               Log.d(this.getClass().getSimpleName(),"sent hw");
             try {
                 sleep(1000);
             } catch (InterruptedException e) {

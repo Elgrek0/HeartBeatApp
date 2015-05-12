@@ -1,8 +1,11 @@
 package bluetooth;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -12,11 +15,14 @@ class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
     private BluetoothAdapter mBluetoothAdapter;
-    public ReadBytesThread rbt ;
-    public ConnectThread(BluetoothDevice device, BluetoothAdapter ba) {
+    public HelloWorldThread rbt ;
+    public ReceiverThread rct ;
+    Activity a;
+    public ConnectThread(BluetoothDevice device, BluetoothAdapter ba,Activity a) {
         // Use a temporary object that is later assigned to mmSocket,
         // because mmSocket is final
         BluetoothSocket tmp = null;
+        this.a=a;
         mmDevice = device;
         mBluetoothAdapter = ba;
 
@@ -45,16 +51,17 @@ class ConnectThread extends Thread {
             } catch (IOException closeException) { }
             return;
         }
-        System.out.println("socket connected");
+        Log.d(this.getClass().getSimpleName(),"socket connected");
         // Do work to manage the connection (in a separate thread)
 
     }
 
 
     void manageConnectedSocket(BluetoothSocket mmSocket){
-        rbt=new ReadBytesThread(mmSocket);
+        rbt=new HelloWorldThread(mmSocket);
         rbt.start();
-
+        rct=new ReceiverThread(mmSocket,a);
+        rct.start();
     }
 
     /** Will cancel an in-progress connection, and close the socket */
