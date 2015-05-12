@@ -16,6 +16,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import android.os.Build;
 
+import bluetooth.Detector;
+
 public class HeartBeatSpectrumActivity extends ActionBarActivity {
 
 	@Override
@@ -27,8 +29,9 @@ public class HeartBeatSpectrumActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		
+
+        Detector dec=new Detector();
+        dec.connect(this);
 	}
 	
 

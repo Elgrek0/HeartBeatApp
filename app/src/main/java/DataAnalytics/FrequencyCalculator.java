@@ -21,10 +21,14 @@ public class FrequencyCalculator {
 
     public float CalculateFrequency(float strength) throws NotEnoughDataException {
         buffer.add(System.currentTimeMillis());
+        float rfreq=0;
         if (buffer.size() > size) {
             buffer.remove(0);
-
-            return ((float)1/((buffer.getLast() - buffer.getFirst()) / (1000.0f*(size - 1))));
+            for(int i=1;i<size;i++)
+                rfreq+=buffer.get(i)-buffer.get(i-1);
+            rfreq/=(size-1);
+            rfreq=1000/rfreq;
+            return (rfreq);
         }throw new NotEnoughDataException();
     }
 

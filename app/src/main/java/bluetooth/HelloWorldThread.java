@@ -50,7 +50,7 @@ public class HelloWorldThread extends Thread {
                 //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                Log.d(this.getClass().getSimpleName(),"sent hw");
             try {
-                sleep(1000);
+                sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

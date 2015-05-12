@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import database.DatabaseAccess;
+import upatras.heartbeatapp.HeartBeatSpectrum;
+import upatras.heartbeatapp.HeartBeatSpectrumActivity;
 import upatras.heartbeatapp.MainActivity;
 
 public class ReceiverThread  extends Thread {
@@ -45,6 +48,7 @@ public class ReceiverThread  extends Thread {
 
         // Keep listening to the InputStream until an exception occurs
         Looper.prepare();
+
         while (true) {
             try {
                 s = "";
@@ -57,6 +61,7 @@ public class ReceiverThread  extends Thread {
                 }
                 final String sf=s;
                 if(!s.equals("")){
+                    HeartBeatSpectrum.db.commitNewHBSample(1);
                     if(a.getClass()==MainActivity.class)
                         ((MainActivity)a).runOnUiThread(new Runnable() {
                         public void run() {

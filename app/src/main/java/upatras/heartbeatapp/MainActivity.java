@@ -1,6 +1,7 @@
 package upatras.heartbeatapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -28,8 +29,9 @@ public class MainActivity extends ActionBarActivity {
                     .commit();
         }
 
-        Detector dec=new Detector();
-        dec.connect(this);
+
+        Intent intent = new Intent(this, HeartBeatSpectrumActivity.class);
+        startActivity(intent);
     }
 
 

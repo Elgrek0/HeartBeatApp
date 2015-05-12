@@ -43,7 +43,7 @@ public class DatabaseAccess {
 
         //id = getlastid();
         //if (debug) System.out.println("id is :" + id);
-        fc = new FrequencyCalculator(2);
+        fc = new FrequencyCalculator(5);
     }
 
     public void reset() {
@@ -92,9 +92,9 @@ public class DatabaseAccess {
         LinkedList<Object> data=new LinkedList<>();
         Object [] toreturn;
         try {
-            System.out.println("SELECT "+ toreturn_var_name +" FROM " + table_name +
+            /*System.out.println("SELECT "+ toreturn_var_name +" FROM " + table_name +
                     " WHERE " + comp_var_name + ">" + TypeHandler.convert(above)+
-                    " AND "+ comp_var_name + "<=" + TypeHandler.convert(below)+ "");
+                    " AND "+ comp_var_name + "<=" + TypeHandler.convert(below)+ "");*/
 
             c = db.rawQuery("SELECT "+ toreturn_var_name +" FROM " + table_name +
                     " WHERE " + comp_var_name + ">" + TypeHandler.convert(above)+

@@ -31,7 +31,7 @@ public class HeartBeatSpectrum extends View{
 	boolean rendering = true;
 	Random rand;
 	int bufferSize = 200;
-	DatabaseAccess db;
+	public static DatabaseAccess db;
 	
 	public HeartBeatSpectrum(Context context) {
 		super(context);
@@ -103,7 +103,17 @@ public class HeartBeatSpectrum extends View{
 			public void run() {
 				// TODO Auto-generated method stub
 				int cntr=0;
-				while(rendering){
+                while(rendering){
+                    postInvalidate();
+                    try {
+                        synchronized (this){wait(100);}
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                /*
+				while(false){
 					
 					
 					for(int i=0;i<rects.size();i++){
@@ -122,12 +132,12 @@ public class HeartBeatSpectrum extends View{
 						}
 						
 					}
+
 					
 					
 					
 					
-					
-				}
+				}*/
 			}
 		});
 		t.start();
@@ -160,7 +170,7 @@ public class HeartBeatSpectrum extends View{
             Object []datat;
             datat = db.getData(50, "Beats","id", "frequency",Float.class);
             Float[] data = Arrays.copyOf(datat, datat.length, Float[].class);
-            //System.out.println(System.currentTimeMillis()-time);
+            Log.d("", "got back "+data.length+" data");
             for (int i = 0; i < data.length; i++) {
                 g.setColor(pallete[(int) (i * 2) % pallete.length]);
                 System.out.println(data[i] * 60);
@@ -168,8 +178,8 @@ public class HeartBeatSpectrum extends View{
                 //Log.d("", msg);
             }
         }
-        catch (NoDataException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            Log.d("","spectrum failed");
         }
 				//c.drawRect(new Rect((int)db.getSpecificData(i),height/2-100,(int)db.getSpecificData(i)+1,height/2),g);
 				
