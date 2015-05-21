@@ -47,10 +47,14 @@ public class Detector {
             String action=intent.getAction();
             Log.d("myapp","received smthing");
             if(BluetoothDevice.ACTION_FOUND.equals(action)){
-                BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                final BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 BTArrayAdapter.add(device.getName()+"\n"+device.getAddress());
-                if(a.getClass()==MainActivity.class)
-                    ((MainActivity)a).showMyToast(device.getName());
+
+                (a).runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(a, device.getName()+" , "+device.getAddress(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 Log.d("myapp","device found " + device.getName());
                 BTArrayAdapter.notifyDataSetChanged();
                 new ConnectThread(device,ba,a).start();

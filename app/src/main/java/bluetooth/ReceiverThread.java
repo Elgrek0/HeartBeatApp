@@ -62,8 +62,8 @@ public class ReceiverThread  extends Thread {
                 final String sf=s;
                 if(!s.equals("")){
                     HeartBeatSpectrum.db.commitNewHBSample(1);
-                    if(a.getClass()==MainActivity.class)
-                        ((MainActivity)a).runOnUiThread(new Runnable() {
+
+                        (a).runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(a, sf, Toast.LENGTH_SHORT).show();
                         }
